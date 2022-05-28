@@ -7,19 +7,47 @@ import qualified Data.Text.IO as TextIO
 import Flow ((|>))
 import qualified System.Environment as Env
 
+type Entry =
+  (Text.Text, Int)
+
+type Vocabulary =
+  [Entry]
+
+extractVocabulary :: Text.Text -> Vocabulary
+extractVocabulary text =
+  map buildEntry $ List.group $ List.sort words
+  where
+    words =
+      text
+        |> Text.words
+        |> map cleanWord
+        |> filter (not . Text.null)
+        |> map Text.toCaseFold
+    buildEntry xs =
+      case xs of
+        (x : _) -> (x, length xs)
+        [] -> error "unexpected"
+    cleanWord = Text.dropAround (not . Char.isLetter)
+
+printAllWords :: Vocabulary -> IO ()
+printAllWords vocabulary =
+  do
+    putStrLn "All words:"
+    TextIO.putStrLn $ Text.unlines $ map fst vocabulary
+
+processTextFile :: FilePath -> IO ()
+processTextFile filename =
+  do
+    text <- TextIO.readFile filename
+    let vocabulary = extractVocabulary text
+    printAllWords vocabulary
+
 main :: IO ()
 main =
   do
-    [filename] <- Env.getArgs
-    text <- TextIO.readFile filename
-    let words =
-          text
-            |> Text.words
-            |> map (Text.dropAround $ not . Char.isLetter)
-            |> filter (not . Text.null)
-            |> map Text.toCaseFold
-            |> List.sort
-            |> List.group
-            |> map head
-    TextIO.putStrLn $ Text.unwords words
-    print $ length words
+    args <- Env.getArgs
+    case args of
+      [filename] ->
+        processTextFile filename
+      _ ->
+        putStrLn "Usage: vocabulary filename"
