@@ -4,7 +4,7 @@ import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Data.Text as Text
 import qualified Data.Text.IO as TextIO
-import Flow ((<|), (|>))
+import Flow ((<.), (<|), (|>))
 import qualified System.Environment as Env
 
 type Entry =
@@ -24,13 +24,13 @@ extractVocabulary text =
       text
         |> Text.words
         |> map cleanWord
-        |> filter (not . Text.null)
+        |> filter (not <. Text.null)
         |> map Text.toCaseFold
     buildEntry xs =
       case xs of
         (x : _) -> (x, length xs)
         [] -> error "unexpected"
-    cleanWord = Text.dropAround (not . Char.isLetter)
+    cleanWord = Text.dropAround (not <. Char.isLetter)
 
 printAllWords :: Vocabulary -> IO ()
 printAllWords vocabulary =
