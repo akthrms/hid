@@ -53,4 +53,4 @@ main =
       [filename] ->
         processTextFile filename
       _ ->
-        putStrLn "Usage: vocabulary filename"
+        putStrLn "Usage: vocabulary <filename>"
