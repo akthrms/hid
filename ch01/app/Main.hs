@@ -4,7 +4,7 @@ import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Data.Text as Text
 import qualified Data.Text.IO as TextIO
-import Flow ((|>))
+import Flow ((<|), (|>))
 import qualified System.Environment as Env
 
 type Entry =
@@ -15,7 +15,10 @@ type Vocabulary =
 
 extractVocabulary :: Text.Text -> Vocabulary
 extractVocabulary text =
-  map buildEntry $ List.group $ List.sort words
+  words
+    |> List.sort
+    |> List.group
+    |> map buildEntry
   where
     words =
       text
@@ -33,7 +36,7 @@ printAllWords :: Vocabulary -> IO ()
 printAllWords vocabulary =
   do
     putStrLn "All words:"
-    TextIO.putStrLn $ Text.unlines $ map fst vocabulary
+    TextIO.putStrLn <| Text.unlines <| map fst vocabulary
 
 processTextFile :: FilePath -> IO ()
 processTextFile filename =
