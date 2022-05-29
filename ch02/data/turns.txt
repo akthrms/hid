@@ -1,0 +1,10 @@
+TurnLeft
+TurnLeft
+TurnNone
+TurnAround
+TurnLeft
+TurnRight
+TurnLeft
+TurnRight
+TurnNone
+TurnNone

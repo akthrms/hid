@@ -8,6 +8,7 @@ common shared-properties
   build-depends:
     , base  ^>=4.14.3.0
     , flow
+    , fmt
 
   default-language: Haskell2010
 

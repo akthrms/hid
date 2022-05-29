@@ -29,6 +29,19 @@ data Turn
   | TurnAround
   deriving (Bounded, Enum, Eq, Show)
 
+instance Semigroup Turn where
+  TurnNone <> turn = turn
+  TurnLeft <> TurnLeft = TurnAround
+  TurnLeft <> TurnRight = TurnNone
+  TurnLeft <> TurnAround = TurnRight
+  TurnRight <> TurnRight = TurnAround
+  TurnRight <> TurnAround = TurnLeft
+  TurnAround <> TurnAround = TurnNone
+  turn1 <> turn2 = turn2 <> turn1
+
+instance Monoid Turn where
+  mempty = TurnNone
+
 rotate :: Turn -> Direction -> Direction
 rotate turn =
   case turn of
@@ -52,8 +65,8 @@ orient direction1 direction2 =
     |> head
 
 rotateMany :: Direction -> [Turn] -> Direction
-rotateMany =
-  foldl (flip rotate)
+rotateMany direction turns =
+  rotate (mconcat turns) direction
 
 rotateManySteps :: Direction -> [Turn] -> [Direction]
 rotateManySteps =
