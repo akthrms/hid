@@ -52,7 +52,11 @@ wordsByFrequency =
 
 allWordsReport :: Vocabulary -> Text.Text
 allWordsReport vocabulary =
-  Fmt.fmt <| Fmt.nameF "All words" <| Fmt.unlinesF <| allWords vocabulary
+  vocabulary
+    |> allWords
+    |> Fmt.unlinesF
+    |> Fmt.nameF "All words"
+    |> Fmt.fmt
 
 wordsCountReport :: Vocabulary -> Text.Text
 wordsCountReport vocabulary =
@@ -62,7 +66,10 @@ wordsCountReport vocabulary =
 
 frequentWordsReport :: Vocabulary -> Int -> Text.Text
 frequentWordsReport vocabulary n =
-  Fmt.fmt <| Fmt.nameF "Frequent words" <| Fmt.blockListF' "" fmtEntry reportData
+  reportData
+    |> Fmt.blockListF' "" fmtEntry
+    |> Fmt.nameF "Frequent words"
+    |> Fmt.fmt
   where
     reportData = take n <| wordsByFrequency vocabulary
     fmtEntry (t, n) = "" +| t |+ ": " +| n |+ ""
