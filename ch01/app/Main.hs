@@ -6,7 +6,6 @@ import Control.Monad (when)
 import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Data.Ord as Ord
-import qualified Data.Text as T
 import qualified Data.Text as Text
 import qualified Data.Text.IO as TextIO
 import Flow ((<.), (<|), (|>))
