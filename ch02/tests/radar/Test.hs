@@ -13,7 +13,7 @@ deriving instance Ord Turn
 instance Random.UniformRange Direction where
   uniformRM (low, high) rng =
     do
-      result <- RandomS.uniformRM (fromEnum low :: Int, fromEnum high :: Int) rng
+      result <- RandomS.uniformRM (fromEnum low, fromEnum high) rng
       pure <| toEnum result
 
 instance Random.Uniform Direction where
@@ -23,7 +23,7 @@ instance Random.Uniform Direction where
 instance Random.UniformRange Turn where
   uniformRM (low, high) rng =
     do
-      result <- RandomS.uniformRM (fromEnum low :: Int, fromEnum high :: Int) rng
+      result <- RandomS.uniformRM (fromEnum low, fromEnum high) rng
       pure <| toEnum result
 
 instance Random.Uniform Turn where
