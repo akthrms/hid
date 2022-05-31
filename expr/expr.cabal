@@ -15,3 +15,9 @@ executable expr
   import:         shared-properties
   main-is:        Main.hs
   hs-source-dirs: app
+
+library expr-lib
+  import:          shared-properties
+  exposed-modules: Expr
+  hs-source-dirs:  app
+  build-depends:   text-show
