@@ -2,7 +2,7 @@
 
 module Expr where
 
-import Flow ((<|))
+import Flow ((|>))
 import qualified TextShow as TS
 
 data Expr a
@@ -31,7 +31,8 @@ instance TS.TextShow a => TS.TextShow (Expr a) where
         showbPrec' p 6 "*" e1 e2
     where
       showbPrec' outerPrec innerPrec op e1 e2 =
-        TS.showbParen (outerPrec > innerPrec) <| TS.showbPrec innerPrec e1 <> op <> TS.showbPrec innerPrec e2
+        TS.showbPrec innerPrec e1 <> op <> TS.showbPrec innerPrec e2
+          |> TS.showbParen (outerPrec > innerPrec)
 
 expr1 :: Expr Int
 expr1 =
