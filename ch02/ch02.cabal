@@ -32,6 +32,25 @@ test-suite radar-test
     , radar-lib
     , random     ^>=1.2
 
+executable person-derived
+  import:         shared-properties
+  hs-source-dirs: app/person
+  main-is:        MainDerived.hs
+  other-modules:  Person
+
+executable person-implemented
+  import:         shared-properties
+  hs-source-dirs: app/person
+  main-is:        MainImplemented.hs
+  other-modules:  Person
+
+executable person-text-show
+  import:         shared-properties
+  hs-source-dirs: app/person
+  main-is:        MainTextShow.hs
+  other-modules:  Person
+  build-depends:  text-show
+
 executable ch02
   import:         shared-properties
   hs-source-dirs: app
