@@ -51,7 +51,8 @@ executable person-text-show
   other-modules:  Person
   build-depends:  text-show
 
-executable ch02
-  import:         shared-properties
-  hs-source-dirs: app
-  main-is:        Main.hs
+library contexts-lib
+  import:          shared-properties
+  hs-source-dirs:  app
+  exposed-modules: Contexts
+  build-depends:   mtl
