@@ -23,3 +23,7 @@ cartesianProduct xs ys =
     x <- xs
     y <- ys
     pure <| (x, y)
+
+addNumber :: Int -> IO String
+addNumber n =
+  pure (++) <*> pure (show n ++ " ") <*> getLine
