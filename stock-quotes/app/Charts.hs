@@ -1,1 +1,1 @@
-where Charts where
+module Charts where

@@ -19,5 +19,5 @@ executable stock-quotes
     Charts
     HtmlReport
     Params
-    QuateData
+    QuoteData
     StatReport
