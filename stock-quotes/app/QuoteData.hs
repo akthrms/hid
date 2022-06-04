@@ -1,0 +1,1 @@
+module QuoteData where
