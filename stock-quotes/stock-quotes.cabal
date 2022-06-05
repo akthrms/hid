@@ -8,6 +8,17 @@ common shared-properties
   build-depends:
     , base  ^>=4.14.3.0
     , flow
+    , text
+    , bytestring
+    , time
+    , fmt
+    , blaze-html
+    , colonnade
+    , blaze-colonnade
+    , Chart
+    , Chart-diagrams
+    , cassava
+    , optparse-applicative
 
   default-language: Haskell2010
 
