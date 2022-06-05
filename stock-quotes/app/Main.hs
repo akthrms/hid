@@ -15,15 +15,19 @@ import QuoteData
 import StatReport
 
 main :: IO ()
-main = cmdLineParser >>= work
+main =
+  cmdLineParser >>= work
 
 work :: Params -> IO ()
 work params =
   do
     csvData <- ByteString.readFile (filename params)
+
     case Csv.decodeByName csvData of
-      Left err -> putStrLn err
-      Right (_, quotes) -> generateReports params quotes
+      Left err ->
+        putStrLn err
+      Right (_, quotes) ->
+        generateReports params quotes
 
 generateReports :: (Functor t, Foldable t) => Params -> t QuoteData -> IO ()
 generateReports Params {..} quotes =
@@ -32,9 +36,11 @@ generateReports Params {..} quotes =
     Monad.when chart <| plotChart title quotes chartFilename
     saveHtml htmlFile htmlReport'
   where
-    statInfo' = statInfo quotes
+    statInfo' =
+      statInfo quotes
 
-    textReport' = textReport statInfo'
+    textReport' =
+      textReport statInfo'
 
     htmlReport' =
       htmlReport title quotes statInfo' [chartFilename | chart]
