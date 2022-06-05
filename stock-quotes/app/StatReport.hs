@@ -1,11 +1,15 @@
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
 module StatReport where
 
+import qualified Colonnade
 import qualified Data.Foldable as Foldable
 import qualified Data.Ord as Ord
 import qualified Data.Time as Time
-import Flow ((<|), (|>))
+import Flow ((<.), (<|), (|>))
+import Fmt ((+|), (+||), (|+), (||+))
+import qualified Fmt
 import QuoteData
 
 decimalPlacesFloating :: Int
@@ -61,3 +65,32 @@ statInfo quotes =
           minValue = StatValue decimalPlaces mn
           maxValue = StatValue decimalPlaces mx
        in StatEntry {..}
+
+instance Fmt.Buildable StatValue where
+  build statValue =
+    Fmt.fixedF (decimalPlaces statValue) (value statValue)
+
+instance Fmt.Buildable StatEntry where
+  build StatEntry {..} =
+    "" +|| quoteField ||+ ": "
+      +| meanValue |+ " (mean), "
+      +| minValue |+ " (min), "
+      +| maxValue |+ " (max), "
+      +| daysBetweenMinMax |+ " (days)"
+
+textReport :: [StatEntry] -> String
+textReport =
+  Colonnade.ascii columnStat
+  where
+    columnStat =
+      mconcat
+        [ Colonnade.headed "Quote Field" (show <. quoteField),
+          Colonnade.headed "Mean" (Fmt.pretty <. meanValue),
+          Colonnade.headed "Min" (Fmt.pretty <. minValue),
+          Colonnade.headed "Max" (Fmt.pretty <. maxValue),
+          Colonnade.headed "Days between Min/Max" (Fmt.pretty <. daysBetweenMinMax)
+        ]
+
+showPrice :: Double -> Fmt.Builder
+showPrice =
+  Fmt.fixedF decimalPlacesFloating
