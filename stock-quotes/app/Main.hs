@@ -32,11 +32,9 @@ generateReports Params {..} quotes =
     Monad.when chart <| plotChart title quotes chartFilename
     saveHtml htmlFile htmlReport'
   where
-    statInfo' =
-      statInfo quotes
+    statInfo' = statInfo quotes
 
-    textReport' =
-      textReport statInfo'
+    textReport' = textReport statInfo'
 
     htmlReport' =
       htmlReport title quotes statInfo' [chartFilename | chart]
