@@ -44,7 +44,7 @@ plotChart title quotes filename =
         |> Chart.layout_plots
           .~ [Chart.plotBars <| bars "Volume" volumes Chart.gray]
 
-    candle label values color =
+    candle title values color =
       Chart.def
         |> Chart.plot_candle_line_style .~ lineStyle 1 Chart.gray
         |> Chart.plot_candle_fill .~ True
@@ -53,17 +53,17 @@ plotChart title quotes filename =
         |> Chart.plot_candle_tick_length .~ 0
         |> Chart.plot_candle_width .~ 3
         |> Chart.plot_candle_values .~ values
-        |> Chart.plot_candle_title .~ label
+        |> Chart.plot_candle_title .~ title
 
-    quoteLine label values color =
+    quoteLine title values color =
       Chart.def
         |> Chart.plot_lines_style .~ lineStyle 1 color
         |> Chart.plot_lines_values .~ [values]
-        |> Chart.plot_lines_title .~ label
+        |> Chart.plot_lines_title .~ title
 
-    bars label values color =
+    bars title values color =
       Chart.def
-        |> Chart.plot_bars_titles .~ [label]
+        |> Chart.plot_bars_titles .~ [title]
         |> Chart.plot_bars_values .~ values
         |> Chart.plot_bars_item_styles .~ [(fillStyle color, Nothing)]
 

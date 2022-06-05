@@ -1,37 +1,37 @@
 module Params where
 
 import Control.Applicative ((<**>))
-import qualified Data.Text as T
+import qualified Data.Text as Text
 import Flow ((<|))
-import qualified Options.Applicative as OP
+import qualified Options.Applicative as Ap
 
 data Params = Params
   { filename :: FilePath,
-    company :: Maybe T.Text,
+    company :: Maybe Text.Text,
     chart :: Bool,
     htmlFile :: Maybe FilePath,
     silent :: Bool
   }
 
-mkParams :: OP.Parser Params
+mkParams :: Ap.Parser Params
 mkParams =
   Params
-    <$> OP.strArgument
-      (OP.metavar "FILE" <> OP.help "CSV file name")
-    <*> OP.optional
-      (T.strip <$> OP.strOption (OP.long "name" <> OP.short 'n' <> OP.help "company name"))
-    <*> OP.switch
-      (OP.long "chart" <> OP.short 'c' <> OP.help "generate chart")
-    <*> OP.optional
-      (OP.strOption <| OP.long "html" <> OP.metavar "FILE" <> OP.help "generate HTML report")
-    <*> OP.switch
-      (OP.long "silent" <> OP.short 's' <> OP.help "don't print statistics")
+    <$> Ap.strArgument
+      (Ap.metavar "FILE" <> Ap.help "CSV file name")
+    <*> Ap.optional
+      (Text.strip <$> Ap.strOption (Ap.long "name" <> Ap.short 'n' <> Ap.help "company name"))
+    <*> Ap.switch
+      (Ap.long "chart" <> Ap.short 'c' <> Ap.help "generate chart")
+    <*> Ap.optional
+      (Ap.strOption <| Ap.long "html" <> Ap.metavar "FILE" <> Ap.help "generate HTML report")
+    <*> Ap.switch
+      (Ap.long "silent" <> Ap.short 's' <> Ap.help "don't print statistics")
 
 cmdLineParser :: IO Params
 cmdLineParser =
-  OP.execParser opts
+  Ap.execParser opts
   where
     opts =
-      OP.info
-        (mkParams <**> OP.helper)
-        (OP.fullDesc <> OP.progDesc "Stock quotes data processing")
+      Ap.info
+        (mkParams <**> Ap.helper)
+        (Ap.fullDesc <> Ap.progDesc "Stock quotes data processing")

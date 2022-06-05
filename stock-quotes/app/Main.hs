@@ -5,7 +5,7 @@ module Main where
 
 import Charts
 import qualified Control.Monad as Monad
-import qualified Data.ByteString.Lazy as BS
+import qualified Data.ByteString.Lazy as ByteString
 import qualified Data.Csv as Csv
 import qualified Data.Text as Text
 import Flow ((<|))
@@ -20,7 +20,7 @@ main = cmdLineParser >>= work
 work :: Params -> IO ()
 work params =
   do
-    csvData <- BS.readFile (filename params)
+    csvData <- ByteString.readFile (filename params)
     case Csv.decodeByName csvData of
       Left err -> putStrLn err
       Right (_, quotes) -> generateReports params quotes
@@ -49,4 +49,4 @@ generateReports Params {..} quotes =
       Text.unpack <| "Historical Quotes" <> withCompany " for "
 
     saveHtml Nothing _ = pure ()
-    saveHtml (Just f) html = BS.writeFile f html
+    saveHtml (Just filename) html = ByteString.writeFile filename html
