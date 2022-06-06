@@ -7,14 +7,19 @@ maintainer:    akt.hrms@gmail.com
 
 common shared-properties
   build-depends:
-    , base  ^>=4.14.3.0
+    , base        ^>=4.14.3.0
+    , containers
     , flow
 
   default-language: Haskell2010
 
 library
   import:          shared-properties
-  exposed-modules: MyLib
+  exposed-modules:
+    Data.Deque
+    Data.Queue
+    Data.Stack
+
   hs-source-dirs:  src
 
 test-suite mini-containers-test
