@@ -22,9 +22,16 @@ library
 
   hs-source-dirs:  src
 
-test-suite mini-containers-test
+test-suite queue-test
   import:         shared-properties
   type:           exitcode-stdio-1.0
   hs-source-dirs: test
-  main-is:        MyLibTest.hs
+  main-is:        TestQueue.hs
+  build-depends:  mini-containers
+
+test-suite stack-test
+  import:         shared-properties
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        TestStack.hs
   build-depends:  mini-containers
