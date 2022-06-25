@@ -14,6 +14,7 @@ import Data.Bool (Bool)
 import Data.Deque (Deque)
 import qualified Data.Deque as Deque
 import Data.Maybe (Maybe (..))
+import Flow ((|>))
 
 newtype Queue a
   = Queue (Deque a)
@@ -32,8 +33,12 @@ front (Queue deque) =
 
 enqueue :: a -> Queue a -> Queue a
 enqueue x (Queue deque) =
-  Queue (Deque.pushBack x deque)
+  deque
+    |> Deque.pushBack x
+    |> Queue
 
 dequeue :: Queue a -> Queue a
 dequeue (Queue deque) =
-  Queue (Deque.popFront deque)
+  deque
+    |> Deque.popFront
+    |> Queue
