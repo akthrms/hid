@@ -26,12 +26,12 @@ test-suite queue-test
   import:         shared-properties
   type:           exitcode-stdio-1.0
   hs-source-dirs: test
-  main-is:        TestQueue.hs
+  main-is:        QueueSpec.hs
   build-depends:  mini-containers
 
 test-suite stack-test
   import:         shared-properties
   type:           exitcode-stdio-1.0
   hs-source-dirs: test
-  main-is:        TestStack.hs
+  main-is:        StackSpec.hs
   build-depends:  mini-containers
