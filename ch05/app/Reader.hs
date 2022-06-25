@@ -1,7 +1,5 @@
 {-# LANGUAGE NamedFieldPuns #-}
 
-module Reader where
-
 import Control.Monad.Reader (Reader, when)
 import qualified Control.Monad.Reader as R
 

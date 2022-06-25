@@ -1,5 +1,3 @@
-module Maybe where
-
 import Flow ((<|))
 import Text.Read (readMaybe)
 
