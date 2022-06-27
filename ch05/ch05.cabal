@@ -25,3 +25,8 @@ executable gen-sql
   import:         shared
   main-is:        GenSQL.hs
   hs-source-dirs: app
+
+executable gcd
+  import:         shared
+  main-is:        Gcd.hs
+  hs-source-dirs: app
