@@ -19,3 +19,8 @@ executable reader
   import:         shared
   main-is:        Reader.hs
   hs-source-dirs: app
+
+executable gen-sql
+  import:         shared
+  main-is:        GenSQL.hs
+  hs-source-dirs: app
